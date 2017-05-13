@@ -15,10 +15,22 @@ app.use(express.static(publicPath));
 
 io.on('connection', (socket) => {
   console.log('New user connected');
+  
   socket.on('disconnect', () => {
     console.log('Client disconnected from server')
   });
+
+  socket.emit('newMessage', {
+    from: 'Jason',
+    text: 'Hello everybody!',
+    createdAt: 123
+  });
+
+  socket.on('createMessage', (newMessage) => {
+    console.log('New message created', newMessage);
+  });
 });
+
 
 server.listen(port, () => {
  console.log(`Server is listening on port ${port}.`)
