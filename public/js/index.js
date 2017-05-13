@@ -11,7 +11,11 @@ socket.on('disconnect', function () {
 socket.on('newMessage', function (message) {
   console.log('Received a new message', message)
   var li = $('<li></li>');
-  li.text(`${message.from}: ${message.text}`);
+  
+  // es6 features won't work with IE. Need to use webpack
+  // li.text(`${message.from}: ${message.text}`);
+  li.text(message.from + ': ' + message.text);
+
   $('#messages').append(li);
 });
 
