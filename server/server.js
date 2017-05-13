@@ -24,14 +24,14 @@ io.on('connection', (socket) => {
     console.log('Client disconnected from server')
   });
 
-  socket.on('createMessage', (newMessage) => {
+  socket.on('createMessage', (newMessage, callback) => {
     console.log('New message created', newMessage);
 
     io.emit('newMessage', generateMessage(newMessage.from, newMessage.text));
-
+    callback('This is from the server');
     // socket.broadcast.emit('newMessage', {
     //   from: newMessage.from,
-    //   text: newMessage.text,
+    //   text: newMessage.text, 
     //   createdAt: new Date().getTime()
     // })
   });
